@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Biblioteca</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cobalto:#1D4ED8;
+    --cobalto-escuro:#0F172A;
+    --branco:#F8FAFC;
+
+    --terra:#8B5E3C;
+    --terra-claro:#C4A484;
+
+    --sombra:rgba(0,0,0,0.25);
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0F172A,
+        #1D4ED8
+    );
+
+    font-family:'Poppins', sans-serif;
+
+    overflow:hidden;
+}
+
+/* LIVRO */
+
+.book-container{
+
+    width:90%;
+    max-width:1200px;
+
+    height:85vh;
+
+    display:flex;
+
+    perspective:2000px;
+
+}
+
+/*  CAPAS */
+
+.book{
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.5);
+
+    position:relative;
+
+}
+
+/*  PÁGINA ESQUERDA */
+
+.left-page{
+
+    width:50%;
+
+    background:
+    linear-gradient(
+        145deg,
+        #0F172A,
+        #1D4ED8
+    );
+
+    color:white;
+
+    padding:60px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    position:relative;
+
+}
+
+/* efeito lombada */
+
+.left-page::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:-15px;
+    top:0;
+
+    width:30px;
+    height:100%;
+
+    background:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,0.5),
+        rgba(255,255,255,0.1)
+    );
+
+    z-index:10;
+}
+
+/* PÁGINA DIREITA*/
+
+.right-page{
+
+    width:50%;
+
+    background:
+    linear-gradient(
+        145deg,
+        #F8FAFC,
+        #E2E8F0
+    );
+
+    padding:60px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+}
+
+/* textura papel */
+
+.right-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    repeating-linear-gradient(
+        transparent,
+        transparent 24px,
+        rgba(0,0,0,0.02) 25px
+    );
+
+    pointer-events:none;
+}
+
+/* TÍTULOS */
+
+.logo{
+
+    font-family:'Cinzel', serif;
+
+    font-size:4rem;
+
+    margin-bottom:20px;
+
+    color:white;
+}
+
+.subtitle{
+
+    font-size:1.1rem;
+
+    line-height:1.8;
+
+    color:#CBD5E1;
+
+    max-width:500px;
+}
+
+/* CARD LOGIN */
+
+.login-card{
+
+    width:100%;
+    max-width:400px;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.15);
+
+    position:relative;
+
+    z-index:2;
+}
+
+.login-card h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:var(--cobalto-escuro);
+
+    font-family:'Cinzel', serif;
+}
+
+/*  INPUTS*/
+
+.input-group{
+
+    margin-bottom:25px;
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#334155;
+
+    font-weight:500;
+}
+
+.input-group input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#F1F5F9;
+
+    font-size:1rem;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+.input-group input:focus{
+
+    background:white;
+
+    border:2px solid var(--cobalto);
+
+    box-shadow:
+    0 0 15px rgba(29,78,216,0.2);
+}
+
+/*  BOTÃO */
+
+.btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cobalto),
+        #2563EB
+    );
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 20px rgba(29,78,216,0.3);
+}
+
+/* LINKS */
+
+.link{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+}
+
+.link a{
+
+    color:var(--terra);
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.link a:hover{
+
+    color:var(--cobalto);
+
+}
+
+/* ELEMENTOS */
+
+.circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(10px);
+}
+
+.circle1{
+
+    width:200px;
+    height:200px;
+
+    top:-50px;
+    left:-50px;
+}
+
+.circle2{
+
+    width:150px;
+    height:150px;
+
+    bottom:-40px;
+    right:20px;
+}
+
+/*  RESPONSIVO*/
+
+@media(max-width:950px){
+
+    .book{
+
+        flex-direction:column;
+    }
+
+    .left-page,
+    .right-page{
+
+        width:100%;
+        height:50%;
+    }
+
+    .left-page{
+
+        padding:40px;
+    }
+
+    .logo{
+
+        font-size:2.8rem;
+    }
+
+}
+
+@media(max-width:600px){
+
+    body{
+
+        padding:20px;
+    }
+
+    .book-container{
+
+        height:auto;
+    }
+
+    .left-page,
+    .right-page{
+
+        padding:30px;
+    }
+
+    .login-card{
+
+        padding:30px 20px;
+    }
+
+    .logo{
+
+        font-size:2.2rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="book-container">
+
+    <div class="book">
+
+        <!-- PÁGINA ESQUERDA -->
+
+        <div class="left-page">
+
+            <div class="circle circle1"></div>
+            <div class="circle circle2"></div>
+
+            <h1 class="logo">
+                Bibliotech
+            </h1>
+
+            <p class="subtitle">
+
+               Sistema de biblioteca
+               conectando você ao universo da literatura, 
+               da pesquisa e da educação.
+
+            </p>
+
+        </div>
+
+        <!-- PÁGINA DIREITA -->
+
+        <div class="right-page">
+
+            <div class="login-card">
+
+                <h2>Entrar</h2>
+
+                <!-- FORMULÁRIO -->
+
+                <form action = "/login" method= "POST">
+
+                    <div class="input-group">
+
+                        <label>Email</label>
+
+                        <input
+                        type="email"
+                        name="email"
+                        placeholder="Digite seu email"
+                        required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Senha</label>
+
+                        <input
+                        type="password"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        required>
+
+                    </div>
+
+                    <button
+                    type="submit"
+                    class="btn">
+
+                        Acessar Biblioteca
+
+                    </button>
+
+                </form>
+
+                <!-- LINKS -->
+
+                <div class="link">
+
+                    <a href="/cadastro">
+                        Criar conta
+                    </a>
+
+                    <span style="margin:0 10px; color:#94A3B8;">
+                        |
+                    </span>
+
+                    <a href="/recuperar">
+                        Esqueci minha senha
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+document
+.getElementById('loginForm')
+
+.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const email =
+    document.getElementById('email').value;
+
+    const senha =
+    document.getElementById('senha').value;
+
+    const formData = new FormData();
+
+    formData.append('email', email);
+    formData.append('senha', senha);
+
+    try{
+
+        const response = await fetch('/login', {
+
+            method:'POST',
+            body:formData
+
+        });
+
+        if(response.redirected){
+
+            window.location.href = response.url;
+
+        }else{
+
+            const texto = await response.text();
+
+            alert(texto);
+
+        }
+
+    }catch(erro){
+
+        alert('Erro ao conectar ao servidor');
+
+        console.log(erro);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

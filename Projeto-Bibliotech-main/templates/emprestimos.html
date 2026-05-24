@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Empréstimos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cobalto:#0F3D91;
+    --paper:#F8F6F1;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #081120,
+        #0F3D91
+    );
+
+    font-family:'Poppins', sans-serif;
+
+    padding:40px;
+}
+
+.container{
+
+    max-width:1400px;
+
+    margin:auto;
+}
+/* BOTÃO VOLTAR */
+
+.back-btn{
+
+    display:inline-block;
+
+    margin-bottom:25px;
+
+    background:white;
+
+    color:var(--cobalto);
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    font-weight:600;
+}
+.header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:30px;
+}
+
+.title{
+
+    color:white;
+
+    font-size:2.5rem;
+
+    font-family:'Cinzel', serif;
+}
+
+.btn-voltar{
+
+    background:white;
+
+    color:#0F3D91;
+
+    padding:14px 20px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:600;
+}
+
+.table-box{
+
+    background:var(--paper);
+
+    padding:30px;
+
+    border-radius:25px;
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+table th{
+
+    background:#E2E8F0;
+
+    padding:18px;
+
+    text-align:left;
+}
+
+table td{
+
+    padding:18px;
+
+    border-bottom:
+    1px solid #CBD5E1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1 class="title">
+            Empréstimos Ativos
+        </h1>
+
+        <a
+    href="/dashboard_admin"
+    class="back-btn">
+
+        ← Voltar ao Dashboard
+
+    </a>
+
+    </div>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Usuário</th>
+                    <th>Livro</th>
+                    <th>Data Empréstimo</th>
+                    <th>Data Devolução</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    {% for emprestimo in emprestimos %}
+
+    <tr>
+
+        <td>
+            {{ emprestimo.usuario.nome }}
+        </td>
+
+        <td>
+            {{ emprestimo.livro.titulo }}
+        </td>
+
+        <td>
+            {{ emprestimo.data_emprestimo }}
+        </td>
+
+        <td>
+
+            {% if emprestimo.data_devolucao %}
+
+                {{ emprestimo.data_devolucao }}
+
+            {% else %}
+
+                Não devolvido
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            {% if emprestimo.data_devolucao %}
+
+                Devolvido
+
+            {% else %}
+
+                Ativo
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            {% if not emprestimo.data_devolucao %}
+
+            <a href="/devolver/{{ emprestimo.id}}">
+
+                Devolver
+
+            </a>
+
+        {% else %}
+
+        -
+
+        {% endif %}
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

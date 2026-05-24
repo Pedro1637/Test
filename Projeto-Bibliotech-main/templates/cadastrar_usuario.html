@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Criar Conta</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cobalto:#0F3D91;
+    --cobalto-light:#2563EB;
+
+    --dark:#081120;
+
+    --paper:#F8F6F1;
+
+    --gold:#D4A373;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #081120,
+        #0F3D91
+    );
+
+    font-family:'Poppins', sans-serif;
+
+    padding:20px;
+}
+
+.container{
+
+    width:100%;
+    max-width:500px;
+
+    background:var(--paper);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.3);
+}
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:var(--cobalto);
+
+    font-family:'Cinzel', serif;
+}
+
+.group{
+
+    display:flex;
+    flex-direction:column;
+
+    margin-bottom:20px;
+}
+
+.group label{
+
+    margin-bottom:8px;
+
+    color:#334155;
+
+    font-weight:500;
+}
+
+.group input{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#E2E8F0;
+
+    outline:none;
+
+    font-size:1rem;
+}
+
+.group input:focus{
+
+    border:2px solid var(--cobalto-light);
+
+    background:white;
+}
+
+.btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cobalto),
+        var(--cobalto-light)
+    );
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+}
+
+.link{
+
+    text-align:center;
+
+    margin-top:20px;
+}
+
+.link a{
+
+    text-decoration:none;
+
+    color:var(--gold);
+
+    font-weight:600;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Criar Conta</h1>
+
+    <form id="cadastroForm">
+
+        <div class="group">
+
+            <label>Nome</label>
+
+            <input
+            type="text"
+            id="nome"
+            name = "nome"
+            required>
+
+        </div>
+
+        <div class="group">
+
+            <label>Email</label>
+
+            <input
+            type="email"
+            id="email"
+            name ="email"
+            required>
+
+        </div>
+
+        <div class="group">
+
+            <label>Telefone</label>
+
+            <input
+            type="text"
+            id="telefone"
+            name="telefone"
+            required>
+
+        </div>
+
+        <div class="group">
+
+            <label>Senha</label>
+
+            <input
+            type="password"
+            id="senha"
+            name = "senha"
+            required>
+
+        </div>
+
+        <button type = "submit" class="btn">
+
+            Criar Conta
+
+        </button>
+
+    </form>
+
+    <div class="link">
+
+        <a href="/">
+
+            Voltar para login
+
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+document
+.getElementById('cadastroForm')
+
+.addEventListener('submit', async function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append(
+        'nome',
+        document.getElementById('nome').value
+    );
+
+    formData.append(
+        'email',
+        document.getElementById('email').value
+    );
+
+    formData.append(
+        'telefone',
+        document.getElementById('telefone').value
+    );
+
+    formData.append(
+        'senha',
+        document.getElementById('senha').value
+    );
+
+    try{
+
+        const response = await fetch('/cadastrar_usuario', {
+
+            method:'POST',
+            body:formData
+
+        });
+
+        if(response.redirected){
+
+            alert('Conta criada com sucesso!');
+
+            window.location.href = '/';
+
+        }else{
+
+            alert('Erro ao cadastrar usuário');
+
+        }
+
+    }catch(erro){
+
+        console.log(erro);
+
+        alert('Erro ao conectar com servidor');
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

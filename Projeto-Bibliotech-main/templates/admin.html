@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Painel Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cobalto:#0F3D91;
+    --cobalto-light:#2563EB;
+
+    --dark:#081120;
+
+    --paper:#F8F6F1;
+
+    --terra:#B08968;
+
+    --gold:#D4A373;
+
+    --gray:#64748B;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:
+    linear-gradient(
+        135deg,
+        #081120,
+        #0F3D91
+    );
+
+    min-height:100vh;
+
+    font-family:'Poppins', sans-serif;
+
+    padding:40px;
+}
+
+/* CONTAINER */
+
+.container{
+
+    max-width:1400px;
+
+    margin:auto;
+}
+
+/* BOTÃO VOLTAR */
+
+.back-btn{
+
+    display:inline-block;
+
+    margin-bottom:25px;
+
+    background:white;
+
+    color:var(--cobalto);
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    font-weight:600;
+}
+
+/* HEADER */
+
+.header{
+
+    margin-bottom:30px;
+}
+
+.header h1{
+
+    color:white;
+
+    font-family:'Cinzel', serif;
+
+    font-size:2.8rem;
+}
+
+/* FORMULÁRIO */
+
+.form-box{
+
+    background:var(--paper);
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+
+    margin-bottom:30px;
+}
+
+.form-box h2{
+
+    color:var(--cobalto);
+
+    margin-bottom:25px;
+
+    font-family:'Cinzel', serif;
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+}
+
+.group{
+
+    display:flex;
+    flex-direction:column;
+}
+
+.group label{
+
+    margin-bottom:8px;
+
+    color:#334155;
+
+    font-weight:500;
+}
+
+.group input{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#E2E8F0;
+
+    outline:none;
+}
+
+.group input:focus{
+
+    border:2px solid var(--cobalto-light);
+
+    background:white;
+}
+
+/* BOTÃO */
+
+.btn{
+
+    margin-top:25px;
+
+    padding:16px 25px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cobalto),
+        var(--cobalto-light)
+    );
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+/* TABELA */
+
+.table-box{
+
+    background:var(--paper);
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+}
+
+.table-box h2{
+
+    margin-bottom:25px;
+
+    color:var(--cobalto);
+
+    font-family:'Cinzel', serif;
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+table th{
+
+    background:#E2E8F0;
+
+    padding:18px;
+
+    text-align:left;
+}
+
+table td{
+
+    padding:18px;
+
+    border-bottom:
+    1px solid #CBD5E1;
+}
+
+/* AÇÕES */
+
+.actions{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.edit{
+
+    background:#F59E0B;
+}
+
+.delete{
+
+    background:#DC2626;
+}
+
+.action-btn{
+
+    border:none;
+
+    color:white;
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px;
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- BOTÃO VOLTAR -->
+
+    <a
+    href="/dashboard_admin"
+    class="back-btn">
+
+        ← Voltar ao Dashboard
+
+    </a>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Painel Administrador
+        </h1>
+
+    </div>
+
+    <!-- FORMULÁRIO -->
+
+    <div class="form-box">
+
+        <h2>
+            Cadastrar Livro
+        </h2>
+
+        <form id="livroForm">
+
+            <div class="form-grid">
+
+                <div class="group">
+
+                    <label>Título</label>
+
+                    <input
+                    type="text"
+                    id="titulo"
+                    required>
+
+                </div>
+
+                <div class="group">
+
+                    <label>Autor</label>
+
+                    <input
+                    type="text"
+                    id="autor"
+                    required>
+
+                </div>
+
+                <div class="group">
+
+                    <label>Categoria</label>
+
+                    <input
+                    type="text"
+                    id="categoria"
+                    required>
+
+                </div>
+
+                <div class="group">
+
+                    <label>Ano</label>
+
+                    <input
+                    type="number"
+                    id="ano"
+                    required>
+
+                </div>
+
+            </div>
+
+            <button
+            type="submit"
+            class="btn">
+
+                Salvar Livro
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- TABELA -->
+
+    <div class="table-box">
+
+        <h2>
+            Gerenciar Livros
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoria</th>
+                    <th>Ano</th>
+                    <th>Ações</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tabelaLivros">
+
+                <!-- LIVROS SERÃO CARREGADOS PELO FLASK -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+/* CARREGAR LIVROS */
+
+async function carregarLivros(){
+
+    try{
+
+        const response =
+        await fetch('/api/livros');
+
+        const livros =
+        await response.json();
+
+        const tabela =
+        document.getElementById('tabelaLivros');
+
+        tabela.innerHTML = '';
+
+        livros.forEach(livro => {
+
+            tabela.innerHTML += `
+
+                <tr>
+
+                    <td>${livro.id}</td>
+
+                    <td>${livro.titulo}</td>
+
+                    <td>${livro.autor}</td>
+
+                    <td>${livro.categoria}</td>
+
+                    <td>${livro.ano}</td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                            class="action-btn edit"
+                            onclick="editarLivro(${livro.id})">
+
+                                Editar
+
+                            </button>
+
+                            <button
+                            class="action-btn delete"
+                            onclick="excluirLivro(${livro.id})">
+
+                                Excluir
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    }catch(erro){
+
+        console.log(erro);
+
+        alert('Erro ao carregar livros');
+
+    }
+
+}
+
+/* CADASTRAR LIVRO */
+
+document
+.getElementById('livroForm')
+
+.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const formData = new FormData();
+
+formData.append(
+    'titulo',
+    document.getElementById('titulo').value
+);
+
+formData.append(
+    'autor',
+    document.getElementById('autor').value
+);
+
+formData.append(
+    'categoria',
+    document.getElementById('categoria').value
+);
+
+formData.append(
+    'ano',
+    document.getElementById('ano').value
+);
+
+const response =
+await fetch('/cadastrar_livro', {
+
+    method:'POST',
+
+    body:formData
+
+});
+
+
+        if(response.ok){
+
+            alert('Livro cadastrado!');
+
+            document
+            .getElementById('livroForm')
+            .reset();
+
+            carregarLivros();
+
+        }else{
+
+            alert('Erro ao cadastrar livro');
+
+        }
+});
+
+/* EDITAR LIVRO */
+
+async function editarLivro(id){
+
+    const novoTitulo =
+    prompt('Novo título:');
+
+    const novoAutor =
+    prompt('Novo autor:');
+
+    const novaCategoria =
+    prompt('Nova categoria:');
+
+    const novoAno =
+    prompt('Novo ano:');
+
+    if(
+        !novoTitulo ||
+        !novoAutor ||
+        !novaCategoria ||
+        !novoAno
+    ){
+        return;
+    }
+
+    const formData = new FormData();
+
+    formData.append(
+        'titulo',
+        novoTitulo
+    );
+
+    formData.append(
+        'autor',
+        novoAutor
+    );
+
+    formData.append(
+        'categoria',
+        novaCategoria
+    );
+
+    formData.append(
+        'ano',
+        novoAno
+    );
+
+    try{
+
+        const response =
+        await fetch(
+
+            `/atualizar_livro/${id}`,
+
+            {
+
+                method:'POST',
+
+                body:formData
+
+            }
+
+        );
+
+        if(response.ok){
+
+            alert('Livro atualizado!');
+
+            carregarLivros();
+
+        }else{
+
+            alert('Erro ao atualizar');
+
+        }
+
+    }catch(erro){
+
+        console.log(erro);
+
+    }
+
+}
+
+/* EXCLUIR LIVRO */
+
+async function excluirLivro(id){
+
+    const confirmar =
+    confirm('Deseja excluir este livro?');
+
+    if(!confirmar){
+        return;
+    }
+
+    window.location.href =
+    `/deletar_livro/${id}`;
+
+}
+
+function voltarDashboard(){
+
+    window.location.href =
+    '/dashboard_admin';
+
+}
+
+/* INICIAR */
+
+carregarLivros();
+
+</script>
+
+</body>
+</html>

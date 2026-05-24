@@ -1,0 +1,358 @@
+<!-- devolucoes.html -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Controle de Devoluções</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cobalto:#0F3D91;
+    --cobalto-light:#2563EB;
+
+    --dark:#081120;
+
+    --paper:#F8F6F1;
+
+    --gold:#D4A373;
+
+    --gray:#64748B;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:'Poppins', sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #081120,
+        #0F3D91
+    );
+
+    padding:40px;
+}
+
+/* CONTAINER */
+
+.container{
+
+    max-width:1400px;
+
+    margin:auto;
+}
+
+/* BOTÃO VOLTAR */
+
+.back-btn{
+
+    display:inline-block;
+
+    margin-bottom:25px;
+
+    background:white;
+
+    color:var(--cobalto);
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    font-weight:600;
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:30px;
+}
+
+.header h1{
+
+    color:white;
+
+    font-family:'Cinzel', serif;
+
+    font-size:2.5rem;
+}
+
+/* TABELA */
+
+.table-box{
+
+    background:var(--paper);
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+}
+
+.table-box h2{
+
+    margin-bottom:25px;
+
+    color:var(--cobalto);
+
+    font-family:'Cinzel', serif;
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+table th{
+
+    background:#E2E8F0;
+
+    padding:18px;
+
+    text-align:left;
+}
+
+table td{
+
+    padding:18px;
+
+    border-bottom:
+    1px solid #CBD5E1;
+}
+
+/* STATUS */
+
+.status{
+
+    padding:8px 14px;
+
+    border-radius:10px;
+
+    font-size:0.9rem;
+
+    font-weight:600;
+}
+
+.pendente{
+
+    background:#FEE2E2;
+
+    color:#991B1B;
+}
+
+.devolvido{
+
+    background:#DCFCE7;
+
+    color:#166534;
+}
+
+/* BOTÃO */
+
+.btn{
+
+    border:none;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cobalto),
+        var(--cobalto-light)
+    );
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px;
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- VOLTAR -->
+
+    <a
+    href="/dashboard_admin"
+    class="back-btn">
+
+        ← Voltar ao Dashboard
+
+    </a>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Controle de Devoluções
+        </h1>
+
+    </div>
+
+    <!-- TABELA -->
+
+    <div class="table-box">
+
+        <h2>
+            Livros Emprestados
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Usuário</th>
+                    <th>Livro</th>
+                    <th>Data Empréstimo</th>
+                    <th>Data Devolução</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    {% for emprestimo in emprestimos %}
+
+    <tr>
+
+        <td>
+            {{ emprestimo.usuario.nome }}
+        </td>
+
+        <td>
+            {{ emprestimo.livro.titulo }}
+        </td>
+
+        <td>
+            {{ emprestimo.data_emprestimo }}
+        </td>
+
+        <td>
+
+            {% if emprestimo.data_devolucao %}
+
+                {{ emprestimo.data_devolucao }}
+
+            {% else %}
+
+                Não devolvido
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            {% if emprestimo.data_devolucao %}
+
+                <span class="status devolvido">
+
+                    Devolvido
+
+                </span>
+
+            {% else %}
+
+                <span class="status pendente">
+
+                    Pendente
+
+                </span>
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            {% if not emprestimo.data_devolucao %}
+
+                <a
+                href="/devolver/{{ emprestimo.id }}"
+                class="btn">
+
+                    Devolver
+
+                </a>
+
+            {% else %}
+
+                -
+
+            {% endif %}
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

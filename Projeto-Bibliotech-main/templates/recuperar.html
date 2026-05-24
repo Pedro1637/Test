@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recuperar Senha</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+    --cobalto:#0F3D91;
+    --cobalto-light:#2563EB;
+
+    --paper:#F8F6F1;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #081120,
+        #0F3D91
+    );
+
+    font-family:'Poppins', sans-serif;
+
+    padding:20px;
+}
+
+.container{
+
+    width:100%;
+    max-width:450px;
+
+    background:var(--paper);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.3);
+}
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:var(--cobalto);
+
+    font-family:'Cinzel', serif;
+}
+
+.group{
+
+    display:flex;
+    flex-direction:column;
+
+    margin-bottom:20px;
+}
+
+.group label{
+
+    margin-bottom:8px;
+
+    font-weight:500;
+
+    color:#334155;
+}
+
+.group input{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#E2E8F0;
+
+    outline:none;
+
+    font-size:1rem;
+}
+
+.group input:focus{
+
+    border:2px solid var(--cobalto-light);
+
+    background:white;
+}
+
+.btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cobalto),
+        var(--cobalto-light)
+    );
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.link{
+
+    text-align:center;
+
+    margin-top:20px;
+}
+
+.link a{
+
+    text-decoration:none;
+
+    color:#D4A373;
+
+    font-weight:600;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Recuperar Senha</h1>
+
+    <form id="recuperarForm">
+
+        <div class="group">
+
+            <label>Email</label>
+
+            <input
+            type="email"
+            id="email"
+            required>
+
+        </div>
+
+        <div class="group">
+
+            <label>Nova Senha</label>
+
+            <input
+            type="password"
+            id="novaSenha"
+            required>
+
+        </div>
+
+        <button type = "submit" class="btn">
+
+            Alterar Senha
+
+        </button>
+
+    </form>
+
+    <div class="link">
+
+        <a href= "/">
+
+            Voltar ao login
+
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+document
+.getElementById('recuperarForm')
+
+.addEventListener('submit', async function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append(
+        'email',
+        document.getElementById('email').value
+    );
+
+    formData.append(
+        'senha',
+        document.getElementById('novaSenha').value
+    );
+
+    try{
+
+        const response = await fetch('/alterar_senha', {
+
+            method:'POST',
+            body:formData
+
+        });
+
+        if(response.redirected){
+
+            alert('Senha alterada com sucesso!');
+
+            window.location.href = '/';
+
+        }else{
+
+            alert('Usuário não encontrado');
+
+        }
+
+    }catch(erro){
+
+        console.log(erro);
+
+        alert('Erro ao conectar com servidor');
+
+    }
+
+});
+
+
+</script>
+
+</body>
+</html>

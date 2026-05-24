@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+
+<title>Histórico</title>
+
+<style>
+
+:root{
+
+    --cobalto:#0F3D91;
+
+}
+
+body{
+
+    font-family:Arial;
+
+    background:#0F172A;
+
+    color:white;
+
+    padding:40px;
+}
+
+/* TÍTULO */
+
+h1{
+
+    margin-bottom:25px;
+}
+
+/* BOTÃO VOLTAR */
+
+.btn-voltar{
+
+    display:inline-block;
+
+    margin-bottom:25px;
+
+    background:white;
+
+    color:var(--cobalto);
+
+    text-decoration:none;
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    font-weight:600;
+}
+
+/* TABELA */
+
+table{
+
+    width:100%;
+
+    background:white;
+
+    color:black;
+
+    border-collapse:collapse;
+
+    border-radius:15px;
+
+    overflow:hidden;
+}
+
+th{
+
+    background:#2563EB;
+
+    color:white;
+
+    padding:15px;
+}
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BOTÃO VOLTAR -->
+
+<a
+href="/dashboard_leitor"
+class="btn-voltar">
+
+    ← Voltar
+
+</a>
+
+<h1>
+    Histórico de Leituras
+</h1>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>Livro</th>
+            <th>Data Empréstimo</th>
+            <th>Data Devolução</th>
+            <th>Status</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for emprestimo in emprestimos %}
+
+    <tr>
+
+        <td>
+            {{ emprestimo.livro.titulo }}
+        </td>
+
+        <td>
+            {{ emprestimo.data_emprestimo }}
+        </td>
+
+        <td>
+
+            {% if emprestimo.data_devolucao %}
+
+                {{ emprestimo.data_devolucao }}
+
+            {% else %}
+
+                Não devolvido
+
+            {% endif %}
+
+        </td>
+
+        <td>
+
+            {% if emprestimo.data_devolucao %}
+
+                Devolvido
+
+            {% else %}
+
+                Pendente
+
+            {% endif %}
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+
+</table>
+
+
+
+</body>
+</html>
